@@ -22,6 +22,12 @@
         <label for="comentario">Comentario</label><br>
         <textarea name="comentario" cols="30" rows="5"></textarea>
         <br>
+        <label for="ciudad">Ciudad</label><br>
+        <select name="ciudad">
+            <option value="GDL">Guadalajara</option>
+            <option value="Zapopan">Zapopan</option>
+            <option value="Tonalá">Tonalá</option>
+        </select>
         <input type="submit" value="Enviar">
     </form>
 </body>
