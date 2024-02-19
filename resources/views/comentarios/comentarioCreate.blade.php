@@ -11,7 +11,7 @@
     <hr>
     <h1>Contacto</h1>
 
-    <form action="/contacto-guarda" method="POST">
+    <form action="{{ route('comentario.store') }}" method="POST">
         @csrf
         <label for="nombre">Nombre</label>
         <input type="text" name="nombre">
