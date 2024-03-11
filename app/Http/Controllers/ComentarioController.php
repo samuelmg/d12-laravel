@@ -7,6 +7,12 @@ use Illuminate\Http\Request;
 
 class ComentarioController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->except('index', 'show');
+        // ->only()
+    }
+
     /**
      * Display a listing of the resource.
      */
