@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Comentario;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ComentarioController extends Controller
 {
@@ -18,7 +19,13 @@ class ComentarioController extends Controller
      */
     public function index()
     {
-        $comentarios = Comentario::all();
+        // $comentarios = Comentario::where('user_id', Auth::id())->get();
+        // $comentarios = Auth::user()->comentarios()
+        //     ->where('nombre', 'like', '%2')
+        //     ->get();
+
+        $comentarios = Auth::user()->comentarios;
+
         return view('comentarios/comentarioIndex', compact('comentarios'));
     }
 
@@ -43,13 +50,8 @@ class ComentarioController extends Controller
             'ciudad' => 'required',
         ]);
 
-        // Guardar
-        $comentario = new Comentario();
-        $comentario->nombre = $request->nombre;
-        $comentario->correo = $request->correo;
-        $comentario->comentario = $request->comentario;
-        $comentario->ciudad = $request->ciudad;
-        $comentario->save();
+        $request->merge(['user_id' => Auth::id()]);
+        Comentario::create($request->all());
 
         // Redireccionar
         return redirect()->route('comentario.index');
@@ -83,11 +85,13 @@ class ComentarioController extends Controller
             'ciudad' => 'required',
         ]);
         
-        $comentario->nombre = $request->nombre;
-        $comentario->correo = $request->correo;
-        $comentario->comentario = $request->comentario;
-        $comentario->ciudad = $request->ciudad;
-        $comentario->save();
+        // $comentario->nombre = $request->nombre;
+        // $comentario->correo = $request->correo;
+        // $comentario->comentario = $request->comentario;
+        // $comentario->ciudad = $request->ciudad;
+        // $comentario->save();
+
+        $comentario->update($request->all());
 
         return redirect()->route('comentario.show', $comentario);
     }
